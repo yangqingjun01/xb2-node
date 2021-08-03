@@ -1,6 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { Request, Response } from 'express';
 const app = express();
 const port = 3000;
+
+
 
 // 使用JSON中间件
 
@@ -10,8 +13,8 @@ app.listen(port, () =>{
     console.log('服务已启动')
 });
 
-app.get('/', (request, response) => {
-    response.send('你好');
+app.get('/', (request:Request, response:Response) => {
+    response.send('你好f ');
 });
 
 const data = [
@@ -32,18 +35,18 @@ const data = [
     },
 ];
 
-app.get('/posts', (request, response) => {
+app.get('/posts', (request: Request, response: Response) => {
     response.send(data);
 })
 
-app.get('/posts/:postId', (request, response) => {
+app.get('/posts/:postId', (request: Request, response: Response) => {
     const { postId } = request.params;
-    const posts = data.filter(item => item.id == postId);
-    response.send(posts[1]);
+    const posts = data.filter(item => item.id == parseInt(postId,10));
+    response.send(posts[0]);
 })
 
 // 创建内容
-app.post('/posts', (request, response) => {
+app.post('/posts', (request: Request, response: Response) => {
     const { content } = request.body;
     // 设置状态码
     response.status(201);
